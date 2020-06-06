@@ -128,11 +128,11 @@ class MyDataset(tfds.core.GeneratorBasedBuilder):
     reg_path = "(?P<label>negative|positive)" if labeled else "unsup"
     reg = re.compile(
         os.path.join("^%s" % directory, reg_path, "").replace("\\", "\\\\"))
-    for path, imdb_f in archive:
+    for path, mydataset_f in archive:
       res = reg.match(path)
       if not res:
         continue
-      text = imdb_f.read().strip()
+      text = mydataset_f.read().strip()
       label = res.groupdict()["label"] if labeled else -1
       yield path, {
           "text": text,
